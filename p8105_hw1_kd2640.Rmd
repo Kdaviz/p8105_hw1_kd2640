@@ -1,0 +1,79 @@
+---
+title: "Data Science Homework 1"
+author: "Keyanna Davis"
+date: "9/14/2019"
+output: github_document
+---
+
+
+# Problem 1
+
+This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with data types in practice.
+
+
+The chunk of code below has a random size of 8 from a standard normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 8, and a factor vector of length 8 with 3 different factor levels.
+
+
+```{r problem_1, eval=FALSE}
+library(tidyverse)
+
+rs_df = tibble(
+    rand_samp =rnorm(8),
+    rand_samp_vec =rand_samp > 0,
+    vec_char = c("Hey", "my", "is", "Keyanna", "and", "I", "like", "math"),
+    vec_factor = factor(c("true", "false", "unknown", "unknown", "true", "true", "false", "false")
+    )
+)
+mean(rs_df)
+mean(pull(rs_df, rand_samp))
+mean(pull(rs_df, rand_samp_vec))
+mean(pull(rs_df, vec_char))
+mean(pull(rs_df, vec_char))
+```
+
+####Problem1.1
+The code chunk below applies the numeric function to the logical, character, and factor variables. What happens and why? Does this help explains what happens when you try to take the mean?
+
+```{r numeric_function, eval=FALSE}
+as.numeric(pull(rs_df, rand_samp_vec))
+as.numeric(pull(rs_df, vec_char))
+as.numeric(pull(rs_df, vec_factor))
+```
+
+When I applied the as.numeric function to the logical variables I recieved 1s and 0s which indicates the true values and false values, for the character variables I received NAs and a warning message: NAs introduced by coercion, and for the factor variable i received 1s, 2s , 3s which indicates the different factor levels. This explains why the mean could not be given when I tried to take the mean of each variable in the dataframe.
+
+
+####Problem1.2
+The code chunk below consist of converting logical vectors to numeric vectors and/or factor vectors and after converting I will multiply the results by the random sample from the dataframe. 
+
+```{r converting_variables, eval=FALSE}
+new_samp_num = as.numeric(rs_df$rand_samp_vec)
+new_samp_num * rs_df$rand_samp
+
+new_samp_fac = as.factor(rs_df$rand_samp_vec)
+new_samp_fac * rs_df$rand_samp
+
+new_samp_fac_2 = as.factor(rs_df$rand_samp_vec)
+new_samp_num_2 = as.numeric(new_samp_fac_2)
+new_samp_num_2 * rs_df$rand_samp
+```
+
+
+#Problem 2
+
+This problem focuses the use of inline R code, plotting, and the behavior of ggplot for variables of different types. 
+
+The chunk of code below creates a dataframe comprised of x and y which both are a random sample of size 500 from a standard normal distribution. Its also a logical vector indicating whether x plus y is greater than 1. A numeric vector and a factor vector is created by coercing the logical vector. 
+
+```{r problem_2, eval=FALSE}
+library(tidyverse)
+rsample_df = tibble(
+  x = rnorm(500),
+  y = rnorm(500),
+  logical_vec = x + y > 1
+)
+```
+
+
+
+
