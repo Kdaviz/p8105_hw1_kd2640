@@ -90,8 +90,10 @@ The mean of `rsample_df` is `r mean(pull(rsample_df, x))`, the median is `r medi
 
 The number of proportion of cases `r mean(pull(rsample_df, logical_vec))`.
 
+
 ####Problem 2.2
 The chunk of code below produces 3 scatterplots with color points which are a logical vector, numeric vector, and a factor vector. It also shows the where I saved the first plot. 
+
 
 ```{r yx_scatterplot, eval=FALSE}
 
@@ -101,6 +103,7 @@ plot_3 <-ggplot(rsample_df, aes(x=x, y=y, color=fac_vec)) + geom_point()
 
 ggsave("plot_1.pdf", height=4, width=6)
 ```
+
 Plot 1 shows the logical vector where the red is false and blue indicates true. 
 
 Plot 2 shows the numeric vector where the scales is from 0 to 1, with 0 being the darker blue and as it goes up the scale the color get lighter where 1 is the lightest blue. 
