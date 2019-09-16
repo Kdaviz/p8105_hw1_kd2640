@@ -14,7 +14,7 @@ This problem is intended to emphasize variable types and introduce coercion; som
 The chunk of code below has a random size of 8 from a standard normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 8, and a factor vector of length 8 with 3 different factor levels.
 
 
-```{r problem_1, eval=FALSE}
+```{r problem_1}
 library(tidyverse)
 
 rs_df = tibble(
@@ -46,7 +46,7 @@ When I applied the as.numeric function to the logical variables I recieved 1s an
 ####Problem1.2
 The code chunk below consist of converting logical vectors to numeric vectors and/or factor vectors and after converting I will multiply the results by the random sample from the dataframe. 
 
-```{r converting_variables, eval=FALSE}
+```{r converting_variables}
 new_samp_num = as.numeric(rs_df$rand_samp_vec)
 new_samp_num * rs_df$rand_samp
 
@@ -66,40 +66,41 @@ This problem focuses the use of inline R code, plotting, and the behavior of ggp
 The chunk of code below creates a dataframe comprised of x and y which both are a random sample of size 500 from a standard normal distribution. Its also a logical vector indicating whether x plus y is greater than 1. A numeric vector and a factor vector is created by coercing the logical vector. 
 
 
-```{r problem_2, eval=FALSE}
+```{r problem_2}
 library(tidyverse)
-
 
 rsample_df = tibble(
   x = rnorm(500),
   y = rnorm(500),
-  logical_vec = x + y > 1,
-  num_vec = as.numeric(pull(rsample_df, logical_vec)),
-  fac_vec = as.factor(pull(rsample_df, logical_vec))
+  logical_vec = (x + y) > 1,
+  num_vec = as.numeric(logical_vec),
+  fac_vec = as.factor(logical_vec)
 )
 mean(pull(rsample_df, x))
-mean(rsample_df$x)
 mean(pull(rsample_df, logical_vec))
+
 ```
 
 
 ####Problem 2.1
-The number of rows in `rsample_df` is `r nrow(rsample_df)` and the number of colums is `r ncol(rsample_df)`. 
 
-The mean of `rsample_df` is `r mean(pull(rsample_df, x))`, the median is `r median(pull(rsample, x))`, and the standard deviation is `r sd(pull(rsample_df, x))`.
+The number of rows in `rsample_df` is `r nrow(rsample_df)` and the number of 
+columns is `r ncol(rsample_df)`. The mean of `x` in the dataframe `rsample_df` is `r mean(pull(rsample_df,x))`, the median is `r median(pull(rsample_df, x))`, and the standard deviation is `r sd(pull(rsample_df, x))`. The number of proportion cases `r mean(rsample_df$logical_vec)`
 
-The number of proportion of cases `r mean(pull(rsample_df, logical_vec))`.
 
 
 ####Problem 2.2
 The chunk of code below produces 3 scatterplots with color points which are a logical vector, numeric vector, and a factor vector. It also shows the where I saved the first plot. 
 
 
-```{r yx_scatterplot, eval=FALSE}
+```{r yx_scatterplot}
 
 plot_1 <-ggplot(rsample_df, aes(x=x, y=y, color=logical_vec)) + geom_point()
+plot_1
 plot_2 <-ggplot(rsample_df, aes(x=x, y=y, color=num_vec)) + geom_point()
+plot_2
 plot_3 <-ggplot(rsample_df, aes(x=x, y=y, color=fac_vec)) + geom_point()
+plot_3
 
 ggsave("plot_1.pdf", height=4, width=6)
 ```
