@@ -47,15 +47,15 @@ When I applied the as.numeric function to the logical variables I recieved 1s an
 The code chunk below consist of converting logical vectors to numeric vectors and/or factor vectors and after converting I will multiply the results by the random sample from the dataframe. 
 
 ```{r converting_variables}
-new_samp_num = as.numeric(rs_df$rand_samp_vec)
-new_samp_num * rs_df$rand_samp
+new_samp_num = as.numeric(pull(rs_df, rand_samp_vec))
+new_samp_num * (pull(rs_df, rand_samp))
 
-new_samp_fac = as.factor(rs_df$rand_samp_vec)
-new_samp_fac * rs_df$rand_samp
+new_samp_fac = as.factor(pull(rs_df, rand_samp_vec))
+new_samp_fac * (pull(rs_df, rand_samp))
 
-new_samp_fac_2 = as.factor(rs_df$rand_samp_vec)
+new_samp_fac_2 = as.factor(pull(rs_df, rand_samp_vec))
 new_samp_num_2 = as.numeric(new_samp_fac_2)
-new_samp_num_2 * rs_df$rand_samp
+new_samp_num_2 * (pull(rs_df, rand_samp))
 ```
 
 
@@ -76,8 +76,6 @@ rsample_df = tibble(
   num_vec = as.numeric(logical_vec),
   fac_vec = as.factor(logical_vec)
 )
-mean(pull(rsample_df, x))
-mean(pull(rsample_df, logical_vec))
 
 ```
 
@@ -85,7 +83,7 @@ mean(pull(rsample_df, logical_vec))
 ####Problem 2.1
 
 The number of rows in `rsample_df` is `r nrow(rsample_df)` and the number of 
-columns is `r ncol(rsample_df)`. The mean of `x` in the dataframe `rsample_df` is `r mean(pull(rsample_df,x))`, the median is `r median(pull(rsample_df, x))`, and the standard deviation is `r sd(pull(rsample_df, x))`. The number of proportion cases `r mean(rsample_df$logical_vec)`
+columns is `r ncol(rsample_df)`. The mean of `x` in the dataframe `rsample_df` is `r mean(pull(rsample_df,x))`, the median is `r median(pull(rsample_df, x))`, and the standard deviation is `r sd(pull(rsample_df, x))`. The number of proportion cases `r mean(pull(rsample_df, logical_vec))`
 
 
 
@@ -93,7 +91,7 @@ columns is `r ncol(rsample_df)`. The mean of `x` in the dataframe `rsample_df` i
 The chunk of code below produces 3 scatterplots with color points which are a logical vector, numeric vector, and a factor vector. It also shows the where I saved the first plot. 
 
 
-```{r yx_scatterplot}
+```{r yx_scatterplot, echo=TRUE}
 
 plot_1 <-ggplot(rsample_df, aes(x=x, y=y, color=logical_vec)) + geom_point()
 plot_1
