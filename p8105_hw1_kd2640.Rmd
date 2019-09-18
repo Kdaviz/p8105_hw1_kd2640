@@ -91,7 +91,7 @@ columns is `r ncol(rsample_df)`. The mean of `x` in the dataframe `rsample_df` i
 The chunk of code below produces 3 scatterplots with color points which are a logical vector, numeric vector, and a factor vector. It also shows the where I saved the first plot. 
 
 
-```{r yx_scatterplot, echo=TRUE}
+```{r yx_scatterplot}
 
 plot_1 <-ggplot(rsample_df, aes(x=x, y=y, color=logical_vec)) + geom_point()
 plot_1
